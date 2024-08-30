@@ -1,0 +1,51 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import random
+from matplotlib import transforms
+
+
+def save_shape(shape, filename):
+    fig, ax = plt.subplots(figsize=(2.8, 2.8), dpi=10)
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    # Random variations
+    shift_x = random.uniform(-0.1, 0.1)
+    shift_y = random.uniform(-0.1, 0.1)
+    scale = random.uniform(0.3, 0.5)
+    rotation = random.uniform(0, 360)
+
+    if shape == 'circle':
+        circle = plt.Circle((0.5 + shift_x, 0.5 + shift_y), scale, color='black')
+        ax.add_artist(circle)
+    elif shape == 'square':
+        square = plt.Rectangle((0.5 + shift_x - scale / 2, 0.5 + shift_y - scale / 2), scale, scale, color='black')
+        # Apply rotation to the square
+        t = transforms.Affine2D().rotate_deg_around(0.5, 0.5, rotation)
+        square.set_transform(t + ax.transData)
+        ax.add_artist(square)
+    elif shape == 'triangle':
+        triangle = plt.Polygon(((0.5 + shift_x, 0.9 * scale + shift_y),
+                                (0.1 * scale + shift_x, 0.1 * scale + shift_y),
+                                (0.9 * scale + shift_x, 0.1 * scale + shift_y)),
+                               color='black')
+        # Apply rotation to the triangle
+        t = transforms.Affine2D().rotate_deg_around(0.5, 0.5, rotation)
+        triangle.set_transform(t + ax.transData)
+        ax.add_artist(triangle)
+
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0)
+    plt.close(fig)
+
+
+# Create directories
+os.makedirs('data/circle', exist_ok=True)
+os.makedirs('data/square', exist_ok=True)
+os.makedirs('data/triangle', exist_ok=True)
+
+# Generate and save 500 images per shape
+for i in range(15):
+    save_shape('circle', f'data/circle/circle_{i}.png')
+    save_shape('square', f'data/square/square_{i}.png')
+    save_shape('triangle', f'data/triangle/triangle_{i}.png')

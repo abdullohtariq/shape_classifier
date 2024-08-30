@@ -9,7 +9,7 @@ def create_model():
         layers.MaxPooling2D((2, 2)),
         layers.Flatten(),
         layers.Dense(64, activation='relu'),
-        layers.Dense(3, activation='softmax')  # 3 output classes
+        layers.Dense(3, activation='softmax')
     ])
 
     model.compile(optimizer='adam',

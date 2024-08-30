@@ -16,7 +16,7 @@ def preprocess_image(image_path):
 model = load_model('shape_classifier_model.h5')
 
 # Example prediction
-image_path = 'New data/triangle/triangle_11.png'
+image_path = 'New data/square/square_11.png'
 img_array = preprocess_image(image_path)
 prediction = model.predict(img_array)
 predicted_class_index = np.argmax(prediction, axis=1)[0]
