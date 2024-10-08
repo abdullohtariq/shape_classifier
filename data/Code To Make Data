@@ -49,3 +49,5 @@ for i in range(15):
     save_shape('circle', f'data/circle/circle_{i}.png')
     save_shape('square', f'data/square/square_{i}.png')
     save_shape('triangle', f'data/triangle/triangle_{i}.png')
+
+ #this code made the data on which the model was trained and tested on
